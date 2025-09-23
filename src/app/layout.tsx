@@ -11,7 +11,7 @@ export const metadata:Metadata = {
   title: 'WhyTMI',
   description:'WhyTMI helps you understand complex problems with clear explanations and community feedback. Search, share, and solve together.',
   icons:{
-    icon: "/favicon.ico",
+    icon: "/images/favicon.ico",
     shortcut: "/favicon.ico"
   }
 }
