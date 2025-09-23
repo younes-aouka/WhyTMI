@@ -46,7 +46,7 @@ export async function POST(req:NextRequest) {
                         const secret = new TextEncoder().encode(process.env.Private_Key);
                         const token = await new SignJWT({ id: accountCheck.user_id })
                         .setProtectedHeader({ alg: "HS256" })
-                        .setExpirationTime("5m") // 5 minutes
+                        .setExpirationTime("60m") // 5 minutes
                         .sign(secret);
                         await sendVerificationEmail(accountCheck.email, token);
                         // redirect him to a page that said the verification code is sented
