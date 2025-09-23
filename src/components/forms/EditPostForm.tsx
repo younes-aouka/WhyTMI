@@ -13,7 +13,7 @@ export default function EditPostForm(
     {children:React.ReactNode,title:string,categorie:string,text_content:string,articleId:number}
 ){
   const router = useRouter();
-  const {register,formState:{errors,isSubmitting},setFocus,handleSubmit,setError} = useForm<UpdatePostFormValues>({
+  const {register,formState:{errors,isSubmitting},handleSubmit,setError} = useForm<UpdatePostFormValues>({
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
     defaultValues:{
@@ -48,7 +48,7 @@ export default function EditPostForm(
             }
         }
       }else{
-        router.push('/posts/'+data.title.replaceAll(' ','-'));
+        router.push('/posts/'+articleId);
       }
     }catch(e){
       showToaster();
@@ -134,7 +134,7 @@ export default function EditPostForm(
             {/* article id */}
             <tr>
                 <td>
-                    <input type="hidden" {...register('articleId')}/>
+                    <input type="hidden" {...register('articleId',{valueAsNumber:true})}/>
                 </td>
             </tr>
           </tbody>

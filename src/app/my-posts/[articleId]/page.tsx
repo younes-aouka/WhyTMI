@@ -4,19 +4,18 @@ import { getUserId } from "@/utils/getUserId";
 import { cookies } from "next/headers";
 import Categories from "@/components/shared/Categories"
 
-export default async function page({params}:{params:Promise<{title:string}>}){
+export default async function page({params}:{params:Promise<{articleId:number}>}){
     
-    let {title} = await params ;
-    title = title.replaceAll('-',' ')
-    const {auther_id} = await db.one('SELECT auther_id from article WHERE title = ${title}',{title:title});
+    let {articleId} = await params ;
+    const {auther_id} = await db.one('SELECT auther_id from article WHERE article_id = ${articleId}',{articleId:articleId});
     const cookieStore = await cookies();
     const userId = await getUserId(cookieStore);
     if(auther_id===userId){
-        const {article_id,text_content} = await db.one('SELECT article_id,text_content from article WHERE title = ${title}',{title:title});
-        const {categorie_id} = await db.one('SELECT categorie_id from article_categorie WHERE article_id = ${article_id}',{article_id:article_id});
+        const {text_content,title} = await db.one('SELECT title,text_content from article WHERE article_id = ${articleId}',{articleId:articleId});
+        const {categorie_id} = await db.one('SELECT categorie_id from article_categorie WHERE article_id = ${articleId}',{articleId:articleId});
         const {categorie_name} = await db.one('SELECT categorie_name from categorie WHERE categorie_id = ${categorie_id}',{categorie_id:categorie_id});
         return (
-            <EditPostForm title={title} categorie={categorie_name} text_content={text_content} articleId={article_id}>
+            <EditPostForm title={title} categorie={categorie_name} text_content={text_content} articleId={articleId}>
                 <Categories />
             </EditPostForm>
         )

@@ -49,7 +49,7 @@ export type ProfileFormValues = z.infer<typeof ProfileFormShema>;
 
 
 export const NewPostFormShema = z.object({
-  title: z.string().min(3,{message:'please enter a valid title!(between 3 and 50 characters)'}).max(50).trim() ,
+  title: z.string().min(3,{message:'please enter a valid title!(between 3 and 50 characters)'}).max(150).trim() ,
   categorie: z.string().nonempty('please choose a categorie!'),
   post: z.string().trim().min(3,{message:'your post should be at least 3 characters'})
   .max(200,{message:'your post shouldn\'t pass 200 characters!'})
@@ -58,7 +58,7 @@ export type NewPostFormValues = z.infer<typeof NewPostFormShema>;
 
 
 export const UpdatePostFormShema = z.object({
-  title: z.string().min(3,{message:'please enter a valid title!(between 3 and 50 characters)'}).max(50).trim() ,
+  title: z.string().min(3,{message:'please enter a valid title!(between 3 and 50 characters)'}).max(150).trim() ,
   categorie: z.string().nonempty('please choose a categorie!'),
   post: z.string().trim().min(3,{message:'your post should be at least 3 characters'})
   .max(200,{message:'your post shouldn\'t pass 200 characters!'}),
