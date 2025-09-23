@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
         const secret = new TextEncoder().encode(process.env.Private_Key);
         const token = await new SignJWT({ id: accountCheck.user_id })
         .setProtectedHeader({ alg: "HS256" })
-        .setExpirationTime("5m")
+        .setExpirationTime("60m")
         .sign(secret);
         await sendResetingPasswordEmail(accountCheck.email, token);
         return NextResponse.json({
