@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# WhyTMI
 
-## Getting Started
+Tired of technical difinitions that need difinitions ? problem with no solution? you are in the right place , search for your problem or even post it and get feedback from all world wide! 
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🛠️ Tech Stack
+- **Frontend:** Next.js, React, TailwindCSS, Shadcn/UI  
+- **Auth & Security:** jose (JWT)  
+- **Database:** PostgreSQL (with pg-promise, no ORM)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 Features
+- Post questions and problems  
+- Community-driven feedback  
+- API-powered backend  
+- Simple & clean UI  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 📖 API Documentation
 
-To learn more about Next.js, take a look at the following resources:
+### Posts
+| Method | Endpoint       | Description             |
+|--------|----------------|-------------------------|
+| POST   | `/apis/post`   | Create a new post       |
+| DELETE | `/apis/post`   | Delete an existing post |
+| PUT    | `/apis/post`   | Update an existing post |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Comments
+| Method | Endpoint          | Description                |
+|--------|-------------------|----------------------------|
+| POST   | `/apis/comment`   | Create a new comment       |
+| DELETE | `/apis/comment`   | Delete an existing comment |
+| PUT    | `/apis/comment`   | Update an existing comment |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Authentication
+| Method | Endpoint         | Description                |
+|--------|------------------|----------------------------|
+| POST   | `/apis/sign-in`  | Sign in with your account  |
+| POST   | `/apis/sign-up`  | Create a new account       |
 
-## Deploy on Vercel
+### User
+| Method | Endpoint     | Description                          |
+|--------|--------------|--------------------------------------|
+| PATCH  | `/apis/user` | Update user info (name + password, not email) |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Password Reset
+| Method | Endpoint               | Description                 |
+|--------|------------------------|-----------------------------|
+| POST   | `/apis/reset-password` | Request password reset link |
+| PATCH  | `/apis/reset-password` | Update password             |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 🗂️ ERD (Entity Relationship Diagram)
+
+Here’s the ERD of the project database:
+
+![ERD](./ERD.PNG) 
+
+---
+
+## 📝 Notes
+- **Reply table:** Exists in the ERD, but not yet implemented.  
+- **Categories:** Based on the ERD, a post can belong to multiple categories, but in the current implementation each post has only **one category**.  
+- **Email sending:** Emails are sent using **Gmail App** — this may cause some delay when creating a new account or resetting a password.  
+- **Article vs Post:** The `article` table in the ERD corresponds to the `post` implementation in the Next.js code.  
+
+---
