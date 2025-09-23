@@ -9,14 +9,12 @@ import { notFound } from "next/navigation";
 import { getUserId } from "@/utils/getUserId";
 
 export interface userPost extends Post {
-    article_id: number,
     auther_id:number
 }
 
-export default async function page({params}:{params:Promise<{title:string}>}) {
-    const {title} = await params ;
-    const myResolvedTitle = title.replaceAll('-',' ').trim() ;
-    const post:userPost|null = await db.oneOrNone("SELECT * FROM article where title ILIKE ${title}",{title: myResolvedTitle});
+export default async function page({params}:{params:Promise<{articleId:number}>}) {
+    const {articleId} = await params ;
+    const post:userPost|null = await db.oneOrNone("SELECT * FROM article where article_id = ${articleId}",{articleId: articleId});
     if(post){
         const postComments:Array<Comment> = await db.query(`
         select

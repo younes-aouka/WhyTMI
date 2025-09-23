@@ -4,6 +4,7 @@ import Filters from "@/components/shared/Filters";
 import Categories from "@/components/shared/Categories";
 
 export interface Post{
+  article_id:number
   title: string ,
   published_at: Date,
   text_content: string
@@ -14,7 +15,7 @@ export default async function page({searchParams}: {searchParams: Promise<{ sear
   search = search?.replaceAll('-',' ') || '' ;
   let posts:Post[] ;
   if(search&&categorie){
-    posts = await db.query(`SELECT title,published_at,text_content
+    posts = await db.query(`SELECT a.article_id,title,published_at,text_content
                              FROM
                                 article a INNER JOIN article_categorie ac
 	                              ON a.article_id = ac.article_id
@@ -24,9 +25,9 @@ export default async function page({searchParams}: {searchParams: Promise<{ sear
                                     where categorie_name = \${categorie})
                                     AND title ILIKE \${title};`,{categorie:categorie,title:`%${search}%`}) ;
   }else if(search){
-    posts = await db.query('SELECT title,published_at,text_content FROM article WHERE title ILIKE ${title};',{title:`%${search}%`}) ;
+    posts = await db.query('SELECT article_id,title,published_at,text_content FROM article WHERE title ILIKE ${title};',{title:`%${search}%`}) ;
   }else if(categorie){
-    posts = await db.query(`SELECT title,published_at,text_content
+    posts = await db.query(`SELECT a.article_id,title,published_at,text_content
                              FROM
                                 article a INNER JOIN article_categorie ac
 	                              ON a.article_id = ac.article_id
@@ -35,7 +36,7 @@ export default async function page({searchParams}: {searchParams: Promise<{ sear
                                     SELECT categorie_id FROM categorie
                                     where categorie_name = \${categorie});`,{categorie:categorie}) ;
   }else {
-    posts = await db.query('SELECT title,published_at,text_content FROM article;') ;
+    posts = await db.query('SELECT article_id,title,published_at,text_content FROM article;') ;
   }
   return (
     <div>
@@ -51,7 +52,7 @@ export default async function page({searchParams}: {searchParams: Promise<{ sear
             >
               <p className="text-xs">pubished at: {post.published_at.getDate()}/{post.published_at.getFullYear()}</p>
               <Link
-                href={`/posts/${post.title.replaceAll(" ", "-")}`}
+                href={`/posts/${post.article_id}`}
                 className="underline text-orange-400 text-2xl font-semibold mb-3"
               >
                 {post.title}

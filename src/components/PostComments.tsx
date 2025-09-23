@@ -1,6 +1,6 @@
 'use client';
 import { useRef, useState } from "react";
-import { userPost } from "@/app/posts/[title]/page";
+import { userPost } from "@/app/posts/[articleId]/page";
 import { CommentShema } from "@/Shemas";
 import { Comment } from "@/Shemas";
 import Image from "next/image";
